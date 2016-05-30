@@ -20,6 +20,7 @@ Its purpose is to teach advanced programming.
 - Polishing and Packaging
 - Registering it for Steam Greenlight
 - Putting it on Google Play
+- Adding Multiplayer
 - Creating a Map Editor
 - Creating Possibility for Campaigns
 - Creating a Tutorial Campaign
