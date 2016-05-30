@@ -14,13 +14,17 @@ Its purpose is to teach advanced programming.
 - Adding Powerups
 - Adding Time limit and Destroyer after it runs out
 - Adding Drugs
+- Adding Simple AI
 - Adding a Menu
+- Adding Medium AI
 - Polishing and Packaging
 - Registering it for Steam Greenlight
 - Putting it on Google Play
 - Creating a Map Editor
 - Creating Possibility for Campaigns
 - Creating a Tutorial Campaign
+- Creating Hard AI
+- Creating Insane AI
 - Implementing Community made things (like Maps, Images, Campaigns or other creative ideas)
 
 These points are a rough idea. Some of them may need to be split or combined.
