@@ -35,7 +35,7 @@ Once there are enough question, I will make a seperate video to answer them.
 ### The technologies used in this projects will be:
 - Python 3.4
 - Kivy 1.9.1
-- Twisted
+- socketserver
 - pickleDB
 - Git/Github
 - PyInstaller
