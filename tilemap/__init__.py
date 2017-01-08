@@ -1,18 +1,16 @@
 
 
-from kivy.uix.gridlayout import GridLayout
+from kivy.uix.floatlayout import FloatLayout
 from kivy.lang import Builder
 import yaml
 
 
-class TileMap(GridLayout):
-    # Builder.load_file('world/world.kv')
+class TileMap(FloatLayout):
+    # Builder.load_file('tilemap/tilemap.kv')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.version = None
-        self.width = None
-        self.height = None
         self.layers = []
 
     def load_map(self, name):
@@ -20,8 +18,6 @@ class TileMap(GridLayout):
         with open('content/maps/' + name, 'r') as f:
             content = yaml.load(f.read())
         self.version = content['version']
-        self.width = content['width']
-        self.height = content['height']
         self.layers.clear()
         layers = content['layers']
         for layer in layers:

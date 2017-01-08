@@ -3,7 +3,7 @@
 from kivy.uix.screenmanager import Screen
 from kivy.lang import Builder
 
-from world import World
+from tilemap import TileMap
 
 
 class Game(Screen):
@@ -11,4 +11,4 @@ class Game(Screen):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.world = World()
+        self.board = TileMap()

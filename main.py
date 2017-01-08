@@ -14,8 +14,11 @@ class BomberApe(App):
 
 if __name__ == '__main__':
     from screens.game import Game
+    from screens.editor import Editor
 
     ba = BomberApe()
     game = Game()
+    editor = Editor()
+    ba.view.add_widget(editor)
     ba.view.add_widget(game)
     ba.run()
