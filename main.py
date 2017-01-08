@@ -17,8 +17,9 @@ if __name__ == '__main__':
     from screens.editor import Editor
 
     ba = BomberApe()
-    game = Game()
-    editor = Editor()
+    game = Game(name='game')
+    editor = Editor(name='editor')
+    editor.board.update_tiles({(1, 1): 'grass', (1, 0): 'stone_wall'})
     ba.view.add_widget(editor)
     ba.view.add_widget(game)
     ba.run()

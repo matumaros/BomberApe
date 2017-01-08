@@ -14,3 +14,4 @@ class Editor(Screen):
         super().__init__(*args, **kwargs)
         self.controller = EditorController(self)
         self.board = TileMap()
+        self.add_widget(self.board)
