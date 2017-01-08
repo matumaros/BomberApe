@@ -13,6 +13,9 @@ class TileMap(RelativeLayout):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.bind(focused_pos=lambda wg, pos: self.on_focused_pos(pos))
+        self.bind(
+            selected_coord=lambda wg, coord: self.on_selected_coord(coord)
+        )
 
     def coord_to_pos(self, coord):
         norm = tuple(map(int, coord.split('|')))
@@ -36,9 +39,21 @@ class TileMap(RelativeLayout):
             self.tiles[coord] = tile
             self.add_widget(tile)
 
+    def on_selected_coord(self, coord):
+        if not self.selected:
+            self.selected = Tile(
+                source='atlas://atlases/tiles/select',
+                pos=self.coord_to_pos(coord),
+                size=(self.scale, self.scale),
+            )
+            self.add_widget(self.selected)
+        else:
+            self.selected.pos = self.coord_to_pos(coord)
+
     def on_focused_pos(self, fpos):
         for coord, tile in self.tiles.items():
             tile.pos = self.coord_to_pos(coord)
+        self.selected.pos = self.coord_to_pos(self.selected_coord)
 
     def load_map(self, name):
         return  # needs to be moved to loading module

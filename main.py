@@ -19,8 +19,6 @@ if __name__ == '__main__':
     ba = BomberApe()
     game = Game(name='game')
     editor = Editor(name='editor')
-    editor.board.update_tiles({'1|1': 'grass', '1|2': 'stone_wall'})
     ba.view.add_widget(editor)
     ba.view.add_widget(game)
-    editor.board.focused_pos = (100, 100)
     ba.run()
