@@ -18,12 +18,12 @@ class Editor(Screen):
         self.add_widget(self.board)
         Window.bind(on_key_down=self.on_key_down)
         self.keybindings = {
-            103: 'place_ground',  # g
-            119: 'place_wall',  # w
-            276: 'select_left',  # left arrow
-            275: 'select_right',  # right arrow
-            273: 'select_up',  # up arrow
-            274: 'select_down',  # down arrow
+            (103, ()): 'place_ground',  # g
+            (119, ()): 'place_wall',  # w
+            (276, ()): 'select_left',  # left arrow
+            (275, ()): 'select_right',  # right arrow
+            (273, ()): 'select_up',  # up arrow
+            (274, ()): 'select_down',  # down arrow
         }
         self.actionbindings = {
             'place_ground': lambda: self.controller.place_tile(
@@ -56,7 +56,7 @@ class Editor(Screen):
 
     def on_key_down(self, keyboard, keycode, scancode, text, modifiers):
         try:
-            action = self.keybindings[keycode]
+            action = self.keybindings[(keycode, tuple(modifiers))]
         except KeyError:
             print('key not bound:', keycode)
             pass
