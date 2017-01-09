@@ -1,6 +1,8 @@
 
 
 class Tile:
+    LTYPE = 'ground'
+
     def on_entity_walk(entity):
         pass
 

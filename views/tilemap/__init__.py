@@ -33,7 +33,7 @@ class TileMap(RelativeLayout):
         return x, y
 
     def update_tiles(self, tiles):
-        for coord, tile_type in tiles.items():
+        for coord, ttype in tiles.items():
             try:
                 tile = self.tiles[coord]
             except KeyError:
@@ -42,7 +42,7 @@ class TileMap(RelativeLayout):
                 self.remove_widget(tile)
             tile = Tile(
                 source='{}{}/tiles/{}'.format(
-                    ATLAS_PATH, self.texture_pack, tile_type
+                    ATLAS_PATH, self.texture_pack, ttype
                 ),
                 pos=self.coord_to_pos(coord),
                 size=(self.scale, self.scale),
