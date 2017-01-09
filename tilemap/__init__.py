@@ -12,15 +12,20 @@ class TileMap(RelativeLayout):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.bind(focused_pos=lambda wg, pos: self.on_focused_pos(pos))
+        self.bind(focused_coord=lambda wg, pos: self.on_focused_coord(pos))
         self.bind(
             selected_coord=lambda wg, coord: self.on_selected_coord(coord)
         )
 
     def coord_to_pos(self, coord):
-        norm = tuple(map(int, coord.split('|')))
-        x = norm[0] * self.scale + self.focused_pos[0]
-        y = norm[1] * self.scale + self.focused_pos[1]
+        normx, normy = tuple(map(int, coord.split('|')))
+        focus = tuple(map(int, self.focused_coord.split('|')))
+        focx = focus[0] * self.scale
+        focy = focus[1] * self.scale
+        offx = self.center[0] - focx
+        offy = self.center[1] - focy
+        x = normx * self.scale + offx
+        y = normy * self.scale + offy
         return x, y
 
     def update_tiles(self, tiles):
@@ -50,7 +55,7 @@ class TileMap(RelativeLayout):
         else:
             self.selected.pos = self.coord_to_pos(coord)
 
-    def on_focused_pos(self, fpos):
+    def on_focused_coord(self, fpos):
         for coord, tile in self.tiles.items():
             tile.pos = self.coord_to_pos(coord)
         self.selected.pos = self.coord_to_pos(self.selected_coord)

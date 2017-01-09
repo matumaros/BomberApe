@@ -36,7 +36,7 @@ class Editor(Screen):
         self.board.selected_coord = '0|0'
 
     def update_focus(self, coord):
-        self.board.focused_pos = self.board.coord_to_pos(coord)
+        self.board.focused_coord = coord
 
     def move_selected(self, x=0, y=0):
         coord = self.board.selected_coord
