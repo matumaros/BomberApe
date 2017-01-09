@@ -1,0 +1,15 @@
+layers:
+  ground:
+    0|1: ground
+    1|0: ground
+    1|1: ground
+  powerup: {}
+  util: {}
+  wall:
+    0|0: wall
+    0|2: wall
+    1|2: wall
+    2|0: wall
+    2|1: wall
+    2|2: wall
+version: 2

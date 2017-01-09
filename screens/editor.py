@@ -24,6 +24,7 @@ class Editor(Screen):
             (275, ()): 'select_right',  # right arrow
             (273, ()): 'select_up',  # up arrow
             (274, ()): 'select_down',  # down arrow
+            (115, ('ctrl',)): 'save_map',  # s
         }
         self.actionbindings = {
             'place_ground': lambda: self.controller.place_tile(
@@ -38,6 +39,7 @@ class Editor(Screen):
             'select_right': lambda: self.move_selected(x=1),
             'select_up': lambda: self.move_selected(y=1),
             'select_down': lambda: self.move_selected(y=-1),
+            'save_map': self.controller.save,
         }
 
         self.board.bind(
@@ -58,7 +60,7 @@ class Editor(Screen):
         try:
             action = self.keybindings[(keycode, tuple(modifiers))]
         except KeyError:
-            print('key not bound:', keycode)
+            print('key not bound:', (keycode, tuple(modifiers)))
             pass
         else:
             self.actionbindings[action]()
