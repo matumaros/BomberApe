@@ -19,8 +19,12 @@ class Editor(Screen):
         Window.bind(on_key_down=self.on_key_down)
         self.keybindings = {
             (103, ()): 'place_ground',  # g
-            (119, ()): 'place_wall',  # w
+            (105, ()): 'place_ice',  # i
             (115, ()): 'place_spawn',  # s
+            (119, ()): 'place_wall',  # w
+            (97, ()): 'place_water',  # a
+            (98, ()): 'place_bridge',  # b
+            (99, ()): 'place_crate',  # c
             (276, ()): 'select_left',  # left arrow
             (275, ()): 'select_right',  # right arrow
             (273, ()): 'select_up',  # up arrow
@@ -35,6 +39,22 @@ class Editor(Screen):
             'place_wall': lambda: self.controller.place_tile(
                 coord=self.board.selected_coord,
                 ttype='wall',
+            ),
+            'place_ice': lambda: self.controller.place_tile(
+                coord=self.board.selected_coord,
+                ttype='ice',
+            ),
+            'place_water': lambda: self.controller.place_tile(
+                coord=self.board.selected_coord,
+                ttype='water',
+            ),
+            'place_bridge': lambda: self.controller.place_tile(
+                coord=self.board.selected_coord,
+                ttype='bridge',
+            ),
+            'place_crate': lambda: self.controller.place_tile(
+                coord=self.board.selected_coord,
+                ttype='crate',
             ),
             'place_spawn': lambda: self.controller.place_spawn(
                 coord=self.board.selected_coord,
