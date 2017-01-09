@@ -3,8 +3,13 @@
 <Tile>:
     size: (1, 1)
     size_hint: (None, None)
+    label: label
     canvas:
         Rectangle:
             texture: self.texture
             pos: self.pos
             size: self.size
+    Label:
+        id: label
+        text: ''
+        center: self.parent.center

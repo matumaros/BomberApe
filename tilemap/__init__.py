@@ -59,6 +59,7 @@ class TileMap(RelativeLayout):
         for coord, tile in self.tiles.items():
             tile.pos = self.coord_to_pos(coord)
         self.selected.pos = self.coord_to_pos(self.selected_coord)
+        self.selected.label.text = self.selected_coord
 
     def load_map(self, name):
         return  # needs to be moved to loading module
