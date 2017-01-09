@@ -49,6 +49,9 @@ class TileMap(RelativeLayout):
             )
             self.tiles[coord] = tile
             self.add_widget(tile)
+        if self.selected:
+            self.remove_widget(self.selected)
+            self.add_widget(self.selected)
 
     def on_center(self, wg, center):
         self.on_focused_coord('0|0')
