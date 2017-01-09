@@ -20,6 +20,7 @@ class Editor(Screen):
         self.keybindings = {
             (103, ()): 'place_ground',  # g
             (119, ()): 'place_wall',  # w
+            (115, ()): 'place_spawn',  # s
             (276, ()): 'select_left',  # left arrow
             (275, ()): 'select_right',  # right arrow
             (273, ()): 'select_up',  # up arrow
@@ -34,6 +35,9 @@ class Editor(Screen):
             'place_wall': lambda: self.controller.place_tile(
                 coord=self.board.selected_coord,
                 ttype='wall',
+            ),
+            'place_spawn': lambda: self.controller.place_spawn(
+                coord=self.board.selected_coord,
             ),
             'select_left': lambda: self.move_selected(x=-1),
             'select_right': lambda: self.move_selected(x=1),

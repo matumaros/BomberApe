@@ -53,6 +53,28 @@ class TileMap(RelativeLayout):
             self.remove_widget(self.selected)
             self.add_widget(self.selected)
 
+    def update_spawns(self, spawns):
+        for coord, etype in spawns.items():
+            try:
+                spawn = self.spawns[coord]
+            except KeyError:
+                pass
+            else:
+                self.remove_widget(spawn)
+            spawn = Tile(
+                source='{}{}/tiles/spawn'.format(
+                    ATLAS_PATH, self.texture_pack
+                ),
+                pos=self.coord_to_pos(coord),
+                size=(self.scale, self.scale),
+            )
+            self.spawns[coord] = spawn
+            spawn.label.text = etype
+            self.add_widget(spawn)
+        if self.selected:
+            self.remove_widget(self.selected)
+            self.add_widget(self.selected)
+
     def on_center(self, wg, center):
         self.on_focused_coord('0|0')
 
@@ -72,6 +94,8 @@ class TileMap(RelativeLayout):
     def on_focused_coord(self, fcoord):
         for coord, tile in self.tiles.items():
             tile.pos = self.coord_to_pos(coord)
+        for coord, spawn in self.spawns.items():
+            spawn.pos = self.coord_to_pos(coord)
         self.selected.pos = self.coord_to_pos(self.selected_coord)
         self.selected.label.text = self.selected_coord
 

@@ -14,11 +14,15 @@ class TileMap:
             'powerup': {},
             'wall': {},
         }
+        self.spawns = {}
         self.path = ''
 
     def add_tile(self, coord, ttype):
         ltype = TILES[ttype].LTYPE
         self.layers[ltype][coord] = ttype
+
+    def add_spawn(self, coord, entity):
+        self.spawns[coord] = entity
 
     def save(self):
         if not self.path:
@@ -28,6 +32,7 @@ class TileMap:
         content = {
             'version': self.version,
             'layers': self.layers,
+            'spawns': self.spawns,
         }
         with open(self.path, 'w') as f:
             f.write(yaml.dump(content, default_flow_style=False))
@@ -36,6 +41,7 @@ class TileMap:
         with open(map_path, 'r') as f:
             content = yaml.load(f.read())
 
-        self.version = content['version']
-        self.layers = content['layers']
+        self.version = content.get('version', self.version)
+        self.layers = content.get('layers', self.layers)
+        self.spawns = content.get('spawns', self.spawns)
         self.path = map_path

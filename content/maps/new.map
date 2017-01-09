@@ -15,4 +15,6 @@ layers:
     2|0: wall
     2|1: wall
     2|2: wall
-version: 3
+spawns:
+  0|1: player
+version: 4

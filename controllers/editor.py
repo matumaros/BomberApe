@@ -12,6 +12,10 @@ class EditorController:
         self.tilemap.add_tile(coord, ttype)
         self.view.board.update_tiles({coord: ttype})
 
+    def place_spawn(self, coord, entity='player'):
+        self.tilemap.add_spawn(coord, entity)
+        self.view.board.update_spawns({coord: entity})
+
     def get_tiles(self):
         layers = self.tilemap.layers
         tiles = layers['ground'].copy()
@@ -26,3 +30,4 @@ class EditorController:
     def load(self, map_path):
         self.tilemap.load(map_path)
         self.view.board.update_tiles(self.get_tiles())
+        self.view.board.update_spawns(self.tilemap.spawns)
