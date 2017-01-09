@@ -31,3 +31,11 @@ class TileMap:
         }
         with open(self.path, 'w') as f:
             f.write(yaml.dump(content, default_flow_style=False))
+
+    def load(self, map_path):
+        with open(map_path, 'r') as f:
+            content = yaml.load(f.read())
+
+        self.version = content['version']
+        self.layers = content['layers']
+        self.path = map_path

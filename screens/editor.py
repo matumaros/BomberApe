@@ -11,7 +11,7 @@ from views.tilemap import TileMap
 class Editor(Screen):
     Builder.load_file('screens/editor.kv')
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, map_path='', *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.controller = EditorController(self)
         self.board = TileMap()
@@ -46,6 +46,8 @@ class Editor(Screen):
             selected_coord=lambda wg, coord: self.update_focus(coord)
         )
         self.board.selected_coord = '0|0'
+        if map_path:
+            self.controller.load(map_path)
 
     def update_focus(self, coord):
         self.board.focused_coord = coord

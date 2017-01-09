@@ -1,5 +1,8 @@
 layers:
   ground:
+    -1|-1: ground
+    -1|0: ground
+    0|-1: ground
     0|1: ground
     1|0: ground
     1|1: ground
@@ -12,4 +15,4 @@ layers:
     2|0: wall
     2|1: wall
     2|2: wall
-version: 2
+version: 3

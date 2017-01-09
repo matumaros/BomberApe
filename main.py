@@ -18,7 +18,7 @@ if __name__ == '__main__':
 
     ba = BomberApe()
     game = Game(name='game')
-    editor = Editor(name='editor')
+    editor = Editor(name='editor', map_path='content/maps/new.map')
     ba.view.add_widget(editor)
     ba.view.add_widget(game)
     ba.run()
