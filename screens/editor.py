@@ -5,7 +5,7 @@ from kivy.uix.screenmanager import Screen
 from kivy.lang import Builder
 
 from controllers.editor import EditorController
-from tilemap import TileMap
+from views.tilemap import TileMap
 
 
 class Editor(Screen):

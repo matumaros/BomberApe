@@ -3,7 +3,7 @@
 from kivy.uix.screenmanager import Screen
 from kivy.lang import Builder
 
-from tilemap import TileMap
+from views.tilemap import TileMap
 
 
 class Game(Screen):

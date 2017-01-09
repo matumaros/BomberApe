@@ -7,11 +7,15 @@ import yaml
 from .tile import Tile
 
 
-class TileMap(RelativeLayout):
-    Builder.load_file('tilemap/tilemap.kv')
+ATLAS_PATH = 'atlas://content/texturepacks/'
 
-    def __init__(self, *args, **kwargs):
+
+class TileMap(RelativeLayout):
+    Builder.load_file('views/tilemap/tilemap.kv')
+
+    def __init__(self, texture_pack='default', *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.texture_pack = texture_pack
         self.bind(focused_coord=lambda wg, coord: self.on_focused_coord(coord))
         self.bind(
             selected_coord=lambda wg, coord: self.on_selected_coord(coord)
@@ -37,7 +41,9 @@ class TileMap(RelativeLayout):
             else:
                 self.remove_widget(tile)
             tile = Tile(
-                source='atlas://atlases/tiles/{}'.format(tile_type),
+                source='{}{}/tiles/{}'.format(
+                    ATLAS_PATH, self.texture_pack, tile_type
+                ),
                 pos=self.coord_to_pos(coord),
                 size=(self.scale, self.scale),
             )
@@ -47,7 +53,9 @@ class TileMap(RelativeLayout):
     def on_selected_coord(self, coord):
         if not self.selected:
             self.selected = Tile(
-                source='atlas://atlases/tiles/select',
+                source='{}{}/tiles/select'.format(
+                    ATLAS_PATH, self.texture_pack
+                ),
                 pos=self.coord_to_pos(coord),
                 size=(self.scale, self.scale),
             )
