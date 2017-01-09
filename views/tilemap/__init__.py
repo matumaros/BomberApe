@@ -50,6 +50,9 @@ class TileMap(RelativeLayout):
             self.tiles[coord] = tile
             self.add_widget(tile)
 
+    def on_center(self, wg, center):
+        self.on_focused_coord('0|0')
+
     def on_selected_coord(self, coord):
         if not self.selected:
             self.selected = Tile(
