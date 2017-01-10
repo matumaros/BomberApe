@@ -17,7 +17,7 @@ class Editor(Screen):
         self.board = TileMap()
         self.add_widget(self.board)
         Window.bind(on_key_down=self.on_key_down)
-        self.keybindings = {
+        self.keybindings = {  # ToDo: move to Editor scope (like Game)
             (103, ()): 'place_ground',  # g
             (105, ()): 'place_ice',  # i
             (115, ()): 'place_spawn',  # s

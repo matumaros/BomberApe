@@ -15,10 +15,13 @@ class BomberApe(App):
 if __name__ == '__main__':
     from screens.game import Game
     from screens.editor import Editor
+    from controllers.player import Player
 
     ba = BomberApe()
-    game = Game(name='game')
+    player = Player()
+    game = Game(player, name='game')
     editor = Editor(name='editor', map_path='content/maps/new.map')
-    ba.view.add_widget(editor)
     ba.view.add_widget(game)
+    ba.view.add_widget(editor)
+    game.start(map_path='content/maps/new.map')
     ba.run()
