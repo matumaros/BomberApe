@@ -13,15 +13,29 @@ class BomberApe(App):
 
 
 if __name__ == '__main__':
+    from uuid import uuid4
+
     from screens.game import Game
     from screens.editor import Editor
     from controllers.player import Player
+    from controllers.server import Server
+    from controllers.entities.player import Player as PlayerEntity
 
     ba = BomberApe()
-    player = Player()
-    game = Game(player, name='game')
+    game = Game(name='game')
     editor = Editor(name='editor', map_path='content/maps/new.map')
     ba.view.add_widget(game)
     ba.view.add_widget(editor)
-    game.start(map_path='content/maps/new.map')
+    # Example game setup
+    server = Server()
+    player = Player(uuid4(), server)
+    server.players = {
+        player.uid: player,
+    }
+    euid = uuid4()
+    server.entities = {
+        euid: PlayerEntity(euid, player.uid, (0, 0)),
+    }
+    game.start(player)
+    ###
     ba.run()

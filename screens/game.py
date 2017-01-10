@@ -16,9 +16,9 @@ class Game(Screen):
         (274, ()): 'move_down',  # down arrow
     }
 
-    def __init__(self, player, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.player = player
+        self.player = None
         self.board = TileMap()
 
         self.actionbindings = {
@@ -28,5 +28,6 @@ class Game(Screen):
             'move_down': lambda: self.player.move(y=-1),
         }
 
-    def start(self, map_path):
-        self.player.start(map_path)
+    def start(self, player):
+        self.player = player
+        self.player.start()

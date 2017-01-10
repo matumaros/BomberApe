@@ -11,7 +11,7 @@ class Server:
         self.players = {}
         self.entities = {}
 
-    def start(self, map_path):
+    def start(self):
         for euid, entity in self.entities.items():
             player = self.players[entity.controller]
             player.set_entity(euid)

@@ -1,18 +1,13 @@
 
 
-from uuid import uuid4
-
-from .server import Server
-
-
 class Player:
-    def __init__(self):
-        self.uid = uuid4()
-        self.server = Server()
+    def __init__(self, uid, server):
+        self.uid = uid
+        self.server = server
         self.entity = None
 
-    def start(self, map_path):
-        self.server.start(map_path)
+    def start(self):
+        self.server.start()
 
     def set_entity(self, entity):
         self.entity = entity
