@@ -1,0 +1,14 @@
+#:kivy 1.9.1
+
+<MainMenu>:
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        BoxLayout:
+            orientation: 'vertical'
+            Button:
+                text: "Freeplay"
+                on_press: root.init_game()
+            Button:
+                text: "Editor"
+                on_press: root.init_editor()

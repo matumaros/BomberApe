@@ -13,27 +13,9 @@ class BomberApe(App):
 
 
 if __name__ == '__main__':
-    from uuid import uuid4
-
-    from screens.game import Game
-    from screens.editor import Editor
-    from controllers.player import Player
-    from controllers.server import Server
+    from screens.main_menu import MainMenu
 
     ba = BomberApe()
-    game = Game(name='game')
-    editor = Editor(name='editor', map_path='content/maps/new.map')
-    ba.view.add_widget(game)
-    ba.view.add_widget(editor)
-    # Example game setup
-    server = Server()
-    server.load_map('content/maps/new.map')
-    player = Player(uuid4(), server)
-    server.players = {
-        player.uid: player,
-    }
-    euid = uuid4()
-    server.spawn_entity('gorilla', euid, player.uid)
-    game.start(player)
-    ###
+    main_menu = MainMenu(name='main_menu')
+    ba.view.add_widget(main_menu)
     ba.run()
