@@ -20,6 +20,7 @@ class Game(Screen):
         super().__init__(*args, **kwargs)
         self.player = None
         self.board = TileMap()
+        self.add_widget(self.board)
 
         self.actionbindings = {
             'move_left': lambda: self.player.move(x=-1),
@@ -30,4 +31,5 @@ class Game(Screen):
 
     def start(self, player):
         self.player = player
+        player.view = self
         self.player.start()

@@ -36,6 +36,7 @@ if __name__ == '__main__':
     server.entities = {
         euid: PlayerEntity(euid, player.uid, (0, 0)),
     }
+    server.map_path = 'content/maps/new.map'
     game.start(player)
     ###
     ba.run()
