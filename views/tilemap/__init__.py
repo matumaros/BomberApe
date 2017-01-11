@@ -1,13 +1,16 @@
 
 
+from kivy.atlas import Atlas
 from kivy.uix.relativelayout import RelativeLayout
 from kivy.lang import Builder
 import yaml
 
 from .tile import Tile
+from .entity import Entity
 
 
-ATLAS_PATH = 'atlas://content/texturepacks/'
+TEXPACK_PATH = 'atlas://content/texturepacks'
+ENTITY_PATH = 'atlas://content/entities'
 
 
 class TileMap(RelativeLayout):
@@ -41,8 +44,8 @@ class TileMap(RelativeLayout):
             else:
                 self.remove_widget(tile)
             tile = Tile(
-                source='{}{}/tiles/{}'.format(
-                    ATLAS_PATH, self.texture_pack, ttype
+                source='{}/{}/tiles/{}'.format(
+                    TEXPACK_PATH, self.texture_pack, ttype
                 ),
                 pos=self.coord_to_pos(coord),
                 size=(self.scale, self.scale),
@@ -62,8 +65,8 @@ class TileMap(RelativeLayout):
             else:
                 self.remove_widget(spawn)
             spawn = Tile(
-                source='{}{}/tiles/spawn'.format(
-                    ATLAS_PATH, self.texture_pack
+                source='{}/{}/tiles/spawn'.format(
+                    TEXPACK_PATH, self.texture_pack
                 ),
                 pos=self.coord_to_pos(coord),
                 size=(self.scale, self.scale),
@@ -75,14 +78,31 @@ class TileMap(RelativeLayout):
             self.remove_widget(self.selected)
             self.add_widget(self.selected)
 
+    def spawn_entity(self, coord, euid, skin, size=(1, 1)):
+        size = (size[0] * self.scale, size[1] * self.scale)
+        entity = Entity(
+            source='{}/{}'.format(
+                ENTITY_PATH, skin
+            ),
+            pos=self.coord_to_pos(coord),
+            size=size,
+            coord=coord,
+        )
+        # ToDo: somehow it doesn't set the texture, so it is set manually
+        # figure out why that is, fix it and delete the next two lines
+        atlas = Atlas('content/entities/entities.atlas')
+        entity.texture = atlas[skin]
+        self.entities[euid] = entity
+        self.add_widget(entity)
+
     def on_center(self, wg, center):
         self.on_focused_coord(self.focused_coord)
 
     def on_selected_coord(self, coord):
         if not self.selected:
             self.selected = Tile(
-                source='{}{}/tiles/select'.format(
-                    ATLAS_PATH, self.texture_pack
+                source='{}/{}/tiles/select'.format(
+                    TEXPACK_PATH, self.texture_pack
                 ),
                 pos=self.coord_to_pos(coord),
                 size=(self.scale, self.scale),
@@ -96,6 +116,10 @@ class TileMap(RelativeLayout):
             tile.pos = self.coord_to_pos(coord)
         for coord, spawn in self.spawns.items():
             spawn.pos = self.coord_to_pos(coord)
+        for entity in self.entities.values():
+            entity.pos = self.coord_to_pos(entity.coord)
+            self.remove_widget(entity)
+            self.add_widget(entity)
         if self.selected and self.selected_coord:
             self.selected.pos = self.coord_to_pos(self.selected_coord)
             self.selected.label.text = self.selected_coord

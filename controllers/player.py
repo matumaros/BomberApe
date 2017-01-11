@@ -17,6 +17,16 @@ class Player:
             pass
         if self.view:
             try:
+                spawns = changes['spawn_entities']
+            except KeyError:
+                pass
+            else:
+                for euid, entity in spawns.items():
+                    coord = '{}|{}'.format(*entity.pos)
+                    self.view.board.spawn_entity(
+                        coord, entity.uid, entity.skin, entity.size
+                    )
+            try:
                 tiles = changes['updated_tiles']
             except KeyError:
                 pass

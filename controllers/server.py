@@ -9,6 +9,7 @@ from .tilemap import TileMap
 
 CHANGES_TEMPLATE = {
     'change_controller_entity': {},
+    'spawn_entities': {},
     'updated_tiles': {},
 }
 
@@ -31,6 +32,7 @@ class Server:
             puid = entity.controller
             self.changes['change_controller_entity'][puid] = euid
         self.changes['updated_tiles'] = self.get_tiles()
+        self.changes['spawn_entities'] = self.entities.copy()
         Clock.schedule_once(self.tick)
 
     def tick(self, dt):
