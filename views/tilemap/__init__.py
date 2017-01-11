@@ -76,7 +76,7 @@ class TileMap(RelativeLayout):
             self.add_widget(self.selected)
 
     def on_center(self, wg, center):
-        self.on_focused_coord('0|0')
+        self.on_focused_coord(self.focused_coord)
 
     def on_selected_coord(self, coord):
         if not self.selected:
@@ -96,8 +96,9 @@ class TileMap(RelativeLayout):
             tile.pos = self.coord_to_pos(coord)
         for coord, spawn in self.spawns.items():
             spawn.pos = self.coord_to_pos(coord)
-        self.selected.pos = self.coord_to_pos(self.selected_coord)
-        self.selected.label.text = self.selected_coord
+        if self.selected and self.selected_coord:
+            self.selected.pos = self.coord_to_pos(self.selected_coord)
+            self.selected.label.text = self.selected_coord
 
     def load_map(self, name):
         return  # needs to be moved to loading module
