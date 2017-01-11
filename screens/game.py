@@ -1,5 +1,6 @@
 
 
+from kivy.core.window import Window
 from kivy.uix.screenmanager import Screen
 from kivy.lang import Builder
 
@@ -21,6 +22,7 @@ class Game(Screen):
         self.player = None
         self.board = TileMap()
         self.add_widget(self.board)
+        Window.bind(on_key_down=self.on_key_down)
 
         self.actionbindings = {
             'move_left': lambda: self.player.move(x=-1),
@@ -33,3 +35,12 @@ class Game(Screen):
         self.player = player
         player.view = self
         self.player.start()
+
+    def on_key_down(self, keyboard, keycode, scancode, text, modifiers):
+        try:
+            action = self.keybindings[(keycode, tuple(modifiers))]
+        except KeyError:
+            print('key not bound:', (keycode, tuple(modifiers)))
+            pass
+        else:
+            self.actionbindings[action]()

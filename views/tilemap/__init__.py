@@ -25,8 +25,8 @@ class TileMap(RelativeLayout):
         )
 
     def coord_to_pos(self, coord):
-        normx, normy = tuple(map(int, coord.split('|')))
-        focus = tuple(map(int, self.focused_coord.split('|')))
+        normx, normy = tuple(map(float, coord.split('|')))
+        focus = tuple(map(float, self.focused_coord.split('|')))
         focx = focus[0] * self.scale
         focy = focus[1] * self.scale
         offx = self.center[0] - focx
@@ -94,6 +94,9 @@ class TileMap(RelativeLayout):
         entity.texture = atlas[skin]
         self.entities[euid] = entity
         self.add_widget(entity)
+
+    def move_entity(self, coord, euid):
+        self.entities[euid].pos = self.coord_to_pos(coord)
 
     def on_center(self, wg, center):
         self.on_focused_coord(self.focused_coord)

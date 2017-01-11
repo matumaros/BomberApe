@@ -9,6 +9,7 @@ from .tilemap import TileMap
 
 CHANGES_TEMPLATE = {
     'change_controller_entity': {},
+    'move_entities': {},
     'spawn_entities': {},
     'updated_tiles': {},
 }
@@ -56,4 +57,6 @@ class Server:
 
     def move_entity(self, issuer, euid, x, y):
         entity = self.entities[euid]
-        entity.move(x * entity.speed, y * entity.speed)
+        x, y = x * entity.speed, y * entity.speed
+        entity.move(x, y)
+        self.changes['move_entities'][euid] = entity.pos
