@@ -16,7 +16,7 @@ CHANGES_TEMPLATE = {
 
 
 class Server:
-    TICK_LENGTH = 1 / 1  # 1 second / x | x times per second
+    TICK_LENGTH = 1 / 10  # 1 second / x | x times per second
 
     def __init__(self):
         self.tilemap = TileMap()
