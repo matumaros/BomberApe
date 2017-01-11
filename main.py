@@ -19,7 +19,6 @@ if __name__ == '__main__':
     from screens.editor import Editor
     from controllers.player import Player
     from controllers.server import Server
-    from controllers.entities.player import Player as PlayerEntity
 
     ba = BomberApe()
     game = Game(name='game')
@@ -28,15 +27,13 @@ if __name__ == '__main__':
     ba.view.add_widget(editor)
     # Example game setup
     server = Server()
+    server.load_map('content/maps/new.map')
     player = Player(uuid4(), server)
     server.players = {
         player.uid: player,
     }
     euid = uuid4()
-    server.entities = {
-        euid: PlayerEntity(euid, player.uid, (0, 0), 'gorilla'),
-    }
-    server.map_path = 'content/maps/new.map'
+    server.spawn_entity('gorilla', euid, player.uid)
     game.start(player)
     ###
     ba.run()

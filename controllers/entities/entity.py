@@ -1,11 +1,12 @@
 
 
 class Entity:
-    def __init__(self, uid, controller, pos, skin, size=(1, 1), speed=.1):
+    type = None
+
+    def __init__(self, uid, controller, pos, size=(1, 1), speed=.1):
         self.uid = uid
         self.controller = controller
         self.pos = pos
-        self.skin = skin
         self.size = size
         self.speed = speed
 

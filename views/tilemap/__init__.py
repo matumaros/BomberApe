@@ -72,7 +72,8 @@ class TileMap(RelativeLayout):
                 size=(self.scale, self.scale),
             )
             self.spawns[coord] = spawn
-            spawn.label.text = etype
+            if etype:
+                spawn.label.text = etype
             self.add_widget(spawn)
         if self.selected:
             self.remove_widget(self.selected)

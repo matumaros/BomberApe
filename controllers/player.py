@@ -24,7 +24,7 @@ class Player:
             for euid, entity in spawns.items():
                 coord = self.pos_to_coord(entity.pos)
                 self.view.board.spawn_entity(
-                    coord, entity.uid, entity.skin, entity.size
+                    coord, entity.uid, entity.type, entity.size
                 )
 
             entities = changes.get('move_entities', {})

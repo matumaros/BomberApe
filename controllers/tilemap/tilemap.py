@@ -21,8 +21,8 @@ class TileMap:
         ltype = TILES[ttype].LTYPE
         self.layers[ltype][coord] = ttype
 
-    def add_spawn(self, coord, entity):
-        self.spawns[coord] = entity
+    def add_spawn(self, coord):
+        self.spawns[coord] = None
 
     def save(self):
         if not self.path:
@@ -40,7 +40,6 @@ class TileMap:
     def load(self, map_path):
         with open(map_path, 'r') as f:
             content = yaml.load(f.read())
-
         self.version = content.get('version', self.version)
         self.layers = content.get('layers', self.layers)
         self.spawns = content.get('spawns', self.spawns)
