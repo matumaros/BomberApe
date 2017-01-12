@@ -1,6 +1,6 @@
 
 
-from .tilemap import TileMap
+from models.tilemap import TileMap
 
 
 class EditorController:

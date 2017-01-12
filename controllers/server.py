@@ -4,7 +4,7 @@ from copy import deepcopy
 
 from kivy.clock import Clock
 
-from .tilemap import TileMap
+from models.tilemap import TileMap
 from controllers.entities import ENTITIES
 
 
