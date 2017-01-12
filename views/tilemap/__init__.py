@@ -97,7 +97,8 @@ class TileMap(RelativeLayout):
         self.add_widget(entity)
 
     def move_entity(self, coord, euid):
-        self.entities[euid].pos = self.coord_to_pos(coord)
+        entity = self.entities[euid]
+        entity.coord = coord
 
     def on_center(self, wg, center):
         self.on_focused_coord(self.focused_coord)

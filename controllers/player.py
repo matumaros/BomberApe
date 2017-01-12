@@ -31,6 +31,8 @@ class Player:
             for euid, pos in entities.items():
                 coord = self.pos_to_coord(pos)
                 self.view.board.move_entity(coord, euid)
+                if euid == self.entity:
+                    self.view.board.focused_coord = coord
 
             tiles = changes.get('updated_tiles', {})
             self.view.board.update_tiles(tiles)
