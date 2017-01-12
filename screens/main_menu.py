@@ -1,12 +1,11 @@
 
 from uuid import uuid4
 
-from kivy.core.window import Window
-from kivy.uix.screenmanager import Screen
 from kivy.lang import Builder
 
 from controllers.player import Player
 from controllers.server import Server
+from screens.screen import Screen
 from screens.game import Game
 from screens.editor import Editor
 
@@ -19,7 +18,6 @@ class MainMenu(Screen):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        Window.bind(on_key_down=self.on_key_down)
 
         self.actionbindings = {
         }
@@ -39,7 +37,7 @@ class MainMenu(Screen):
         euid = uuid4()
         server.spawn_entity('gorilla', euid, player.uid)
         game.start(player)
-        self.parent.current = 'game'
+        self.parent.switch_to('game')
 
     def init_editor(self):
         if self.parent.has_screen('editor'):
@@ -47,13 +45,4 @@ class MainMenu(Screen):
             self.parent.remove_widget(screen)
         editor = Editor(name='editor', map_path='content/maps/new.map')
         self.parent.add_widget(editor)
-        self.parent.current = 'editor'
-
-    def on_key_down(self, keyboard, keycode, scancode, text, modifiers):
-        try:
-            action = self.keybindings[(keycode, tuple(modifiers))]
-        except KeyError:
-            print('key not bound:', (keycode, tuple(modifiers)))
-            pass
-        else:
-            self.actionbindings[action]()
+        self.parent.switch_to('editor')

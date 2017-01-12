@@ -1,36 +1,34 @@
 
 
-from kivy.core.window import Window
-from kivy.uix.screenmanager import Screen
 from kivy.lang import Builder
 
 from controllers.editor import EditorController
+from screens.screen import Screen
 from views.tilemap import TileMap
 
 
 class Editor(Screen):
     Builder.load_file('screens/editor.kv')
+    keybindings = {
+        (103, ()): 'place_ground',  # g
+        (105, ()): 'place_ice',  # i
+        (115, ()): 'place_spawn',  # s
+        (119, ()): 'place_wall',  # w
+        (97, ()): 'place_water',  # a
+        (98, ()): 'place_bridge',  # b
+        (99, ()): 'place_crate',  # c
+        (276, ()): 'select_left',  # left arrow
+        (275, ()): 'select_right',  # right arrow
+        (273, ()): 'select_up',  # up arrow
+        (274, ()): 'select_down',  # down arrow
+        (115, ('ctrl',)): 'save_map',  # s
+    }
 
     def __init__(self, map_path='', *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.controller = EditorController(self)
         self.board = TileMap()
         self.add_widget(self.board)
-        Window.bind(on_key_down=self.on_key_down)
-        self.keybindings = {  # ToDo: move to Editor scope (like Game)
-            (103, ()): 'place_ground',  # g
-            (105, ()): 'place_ice',  # i
-            (115, ()): 'place_spawn',  # s
-            (119, ()): 'place_wall',  # w
-            (97, ()): 'place_water',  # a
-            (98, ()): 'place_bridge',  # b
-            (99, ()): 'place_crate',  # c
-            (276, ()): 'select_left',  # left arrow
-            (275, ()): 'select_right',  # right arrow
-            (273, ()): 'select_up',  # up arrow
-            (274, ()): 'select_down',  # down arrow
-            (115, ('ctrl',)): 'save_map',  # s
-        }
         self.actionbindings = {
             'place_ground': lambda: self.controller.place_tile(
                 coord=self.board.selected_coord,
@@ -81,12 +79,3 @@ class Editor(Screen):
         norm = coord.split('|')
         x, y = (x + int(norm[0]), y + int(norm[1]))
         self.board.selected_coord = '{x}|{y}'.format(x=x, y=y)
-
-    def on_key_down(self, keyboard, keycode, scancode, text, modifiers):
-        try:
-            action = self.keybindings[(keycode, tuple(modifiers))]
-        except KeyError:
-            print('key not bound:', (keycode, tuple(modifiers)))
-            pass
-        else:
-            self.actionbindings[action]()

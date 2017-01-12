@@ -2,7 +2,8 @@
 
 
 from kivy.app import App
-from kivy.uix.screenmanager import ScreenManager
+
+from screens.screenmanager import ScreenManager
 
 
 class BomberApe(App):
@@ -18,4 +19,5 @@ if __name__ == '__main__':
     ba = BomberApe()
     main_menu = MainMenu(name='main_menu')
     ba.view.add_widget(main_menu)
+    ba.view.switch_to('main_menu')
     ba.run()
