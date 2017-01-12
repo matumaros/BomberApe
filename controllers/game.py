@@ -16,7 +16,7 @@ CHANGES_TEMPLATE = {
 }
 
 
-class Server:
+class Game:
     TICK_LENGTH = 1 / 10  # 1 second / x | x times per second
 
     def __init__(self):

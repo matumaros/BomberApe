@@ -4,7 +4,7 @@ from uuid import uuid4
 from kivy.lang import Builder
 
 from controllers.player import Player
-from controllers.server import Server
+from controllers.game import Game as GameCtrl
 from screens.screen import Screen
 from screens.game import Game
 from screens.editor import Editor
@@ -28,14 +28,14 @@ class MainMenu(Screen):
             self.parent.remove_widget(screen)
         game = Game(name='game')
         self.parent.add_widget(game)
-        server = Server()
-        server.load_map('content/maps/new.map')
-        player = Player(uuid4(), server)
-        server.players = {
+        game_ctrl = GameCtrl()
+        game_ctrl.load_map('content/maps/new.map')
+        player = Player(uuid4(), game_ctrl)
+        game_ctrl.players = {
             player.uid: player,
         }
         euid = uuid4()
-        server.spawn_entity('gorilla', euid, player.uid)
+        game_ctrl.spawn_entity('gorilla', euid, player.uid)
         game.start(player)
         self.parent.switch_to('game')
 

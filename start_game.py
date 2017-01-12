@@ -5,7 +5,7 @@ from uuid import uuid4
 from main import BomberApe
 from screens.game import Game
 from controllers.player import Player
-from controllers.server import Server
+from controllers.game import Game as Server
 
 ba = BomberApe()
 game = Game(name='game')

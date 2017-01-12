@@ -1,9 +1,9 @@
 
 
 class Player:
-    def __init__(self, uid, server, view=None):
+    def __init__(self, uid, game, view=None):
         self.uid = uid
-        self.server = server
+        self.game = game
         self.entity = None
         self.view = view
 
@@ -11,7 +11,7 @@ class Player:
         return '{}|{}'.format(*pos)
 
     def start(self):
-        self.server.start()
+        self.game.start()
 
     def update(self, changes):
         try:
@@ -40,7 +40,7 @@ class Player:
     def move(self, x=0, y=0):
         if x == y == 0:
             return
-        self.server.move_entity(
+        self.game.move_entity(
             issuer=self.uid,
             euid=self.entity,
             x=x, y=y
