@@ -1,17 +1,22 @@
 
 
+from copy import deepcopy
+
+
+CHANGES_TEMPLATE = {
+    'move': {},
+}
+
+
 class Player:
-    def __init__(self, uid, game, view=None):
+    def __init__(self, uid, view=None):
         self.uid = uid
-        self.game = game
         self.entity = None
         self.view = view
+        self.changes = deepcopy(CHANGES_TEMPLATE)
 
     def pos_to_coord(self, pos):
         return '{}|{}'.format(*pos)
-
-    def start(self):
-        self.game.start()
 
     def update(self, changes):
         try:
@@ -37,11 +42,9 @@ class Player:
             tiles = changes.get('updated_tiles', {})
             self.view.board.update_tiles(tiles)
 
+        return self.changes
+
     def move(self, x=0, y=0):
         if x == y == 0:
             return
-        self.game.move_entity(
-            issuer=self.uid,
-            euid=self.entity,
-            x=x, y=y
-        )
+        self.changes['move'][self.entity] = (x, y)

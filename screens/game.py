@@ -1,9 +1,12 @@
 
 
+from uuid import uuid4
+
 from kivy.lang import Builder
 
 from screens.screen import Screen
 from views.tilemap import TileMap
+from controllers.player import Player
 
 
 class Game(Screen):
@@ -18,18 +21,14 @@ class Game(Screen):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.player = None
+        self.controller = Player(uuid4(), self)
         self.board = TileMap()
         self.add_widget(self.board)
+        self._ctrl = None  # Game controller
 
         self.actionbindings = {
-            'move_left': lambda: self.player.move(x=-1),
-            'move_right': lambda: self.player.move(x=1),
-            'move_up': lambda: self.player.move(y=1),
-            'move_down': lambda: self.player.move(y=-1),
+            'move_left': lambda: self.controller.move(x=-1),
+            'move_right': lambda: self.controller.move(x=1),
+            'move_up': lambda: self.controller.move(y=1),
+            'move_down': lambda: self.controller.move(y=-1),
         }
-
-    def start(self, player):
-        self.player = player
-        player.view = self
-        self.player.start()
