@@ -1,6 +1,7 @@
 
 
 from copy import deepcopy
+import math
 
 from kivy.clock import Clock
 
@@ -81,7 +82,28 @@ class Game:
 
     def validate_proposal(self, puid, proposal):
         for euid, pos in proposal['move'].items():
-            self.move_entity(puid, euid, pos[0], pos[1])
+            x, y = pos
+            entity = self.entities[euid]
+            x, y = x * entity.speed, y * entity.speed
+            entity.move(x, y)
+            ex, ey = entity.pos
+            sx, sy = entity.size
+            if self.is_colliding(ex, ey, sx, sy):
+                entity.move(-x, -y)
+                continue
+            self.move_entity(puid, euid, x, y)
+
+    def is_colliding(self, x, y, size_x=1, size_y=1):
+        sx, sy = math.floor(x), math.floor(y)
+        ex, ey = math.ceil(x), math.ceil(y)
+        walls = self.tilemap.layers['wall'].keys()
+
+        for i in range(sx, ex + size_x):
+            for j in range(sy, ey + size_y):
+                coord = '{}|{}'.format(i, j)
+                if coord in walls:
+                    return True
+        return False
 
     def spawn_entity(self, etype, euid, puid=None):
         for spawn, entity in self.tilemap.spawns.items():
