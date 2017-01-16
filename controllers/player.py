@@ -42,7 +42,9 @@ class Player:
             tiles = changes.get('updated_tiles', {})
             self.view.board.update_tiles(tiles)
 
-        return self.changes
+        changes = self.changes
+        self.changes = deepcopy(CHANGES_TEMPLATE)
+        return changes
 
     def move(self, x=0, y=0):
         if x == y == 0:

@@ -3,9 +3,9 @@ from uuid import uuid4
 
 from kivy.lang import Builder
 
-from controllers.entities import ENTITIES
 from controllers.game import Game as GameCtrl
 from models.scenario import Scenario
+from models.tilemap import TileMap
 from screens.screen import Screen
 from screens.game import Game
 from screens.editor import Editor
@@ -24,11 +24,16 @@ class MainMenu(Screen):
         }
 
     def init_game(self):
+        # Initialization
         scenario = Scenario()
         scenario.map_path = 'content/maps/new.map'
+        tilemap = TileMap(scenario.map_path)
+        ctrl = GameCtrl()
+
+        # Game Setup
         euid = uuid4()
         scenario.entities = {
-            euid: ENTITIES['gorilla'](euid, (1, 1)),
+            euid: 'gorilla'
         }
 
         if self.parent.has_screen('game'):
@@ -38,9 +43,11 @@ class MainMenu(Screen):
             self.parent.add_widget(game)
         player = game.controller
         player.entity = euid
-        self._ctrl = GameCtrl()
-        self._ctrl.setup(
+
+        # Start
+        ctrl.setup(
             scenario=scenario,
+            tilemap=tilemap,
             players={
                 player.uid: player,
             },
@@ -48,7 +55,8 @@ class MainMenu(Screen):
                 player.uid: euid,
             }
         )
-        self._ctrl.start()
+        ctrl.start()
+        game._ctrl = ctrl
         self.parent.switch_to('game')
 
     def init_editor(self):

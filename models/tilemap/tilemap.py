@@ -6,7 +6,7 @@ from .tiles import TILES
 
 
 class TileMap:
-    def __init__(self):
+    def __init__(self, path=''):
         self.version = 1
         self.layers = {
             'ground': {},
@@ -15,7 +15,8 @@ class TileMap:
             'wall': {},
         }
         self.spawns = {}
-        self.path = ''
+        self.path = path
+        self.load(path)
 
     def add_tile(self, coord, ttype):
         ltype = TILES[ttype].LTYPE
@@ -23,6 +24,13 @@ class TileMap:
 
     def add_spawn(self, coord):
         self.spawns[coord] = None
+
+    def get_free_spawns(self):
+        spawns = []
+        for coord, euid in self.spawns.items():
+            if not euid:
+                spawns.append(coord)
+        return spawns
 
     def save(self):
         if not self.path:
